@@ -1,11 +1,4 @@
-import os
-
 from flask import Flask
-
-config = {
-        "port": os.environ.get('PORT', 8080),
-        "debug": os.environ.get('DEBUG', False)
-}
 
 app = Flask(__name__)
 
