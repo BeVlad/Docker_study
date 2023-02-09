@@ -16,7 +16,6 @@ spec:
       containers:
         - name: redmine
         - image: redmine:4.1.1
-          imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432
           env:
@@ -28,14 +27,3 @@ spec:
                   name: my-password
                   key: password
         
-            - name: REDMINE_POSTGRESS_DB
-              value: testdatabase
-            - name: PGDATA
-              value: /var/lib/postgresql/data/pgdata
-         volumeMounts:
-           - mountPath: /var/lib/postgresql/data
-              name: postgredb
-     volumes:
-       - name: postgredb
-         persistentVolumeClaim:
-           claimName: postgres-pvc-pv
