@@ -8,5 +8,5 @@ spec:
   - port: 5432
     
   selector:
-    app: my-app
+    app: my-app-db
   type: ClusterIP
