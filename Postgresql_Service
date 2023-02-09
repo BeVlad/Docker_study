@@ -8,5 +8,5 @@ spec:
   - port: 5432
     
   selector:
-    app: redmine
+    app: my-app
   type: ClusterIP
