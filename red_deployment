@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: red_deployment
+metadata:
+  name: redmine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redmine
+  template:
+    metadata:
+      labels:
+        app: redmine
+    spec:
+      containers:
+        - name: redmine
+        - image: redmine:4.1.1
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          env:
+            - name: REDMINE_POSTGRES_USER
+              value: testuser
+            - name: REDMINE_POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: my-password
+                  key: password
+        
+            - name: REDMINE_POSTGRESS_DB
+              value: testdatabase
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+         volumeMounts:
+           - mountPath: /var/lib/postgresql/data
+              name: postgredb
+     volumes:
+       - name: postgredb
+         persistentVolumeClaim:
+           claimName: postgres-pvc-pv
