@@ -5,8 +5,14 @@ metadata:
   name: Prometheus
 spec:
   serviceName: Prometheus
-  replicas: 3
-  
+  replicas: 1
+    initContainers:
+    - image: prometheus:v2.19.2
+      name: mount-Prometheu
+      command: ["sh", "-c", "chmod 777 /data"]
+      volumeMounts:
+      - name: Prometheus
+        mountPath: /prometheus
   containers:
         - name: Prometheus
           image: prometheus:v2.19.2
